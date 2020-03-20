@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["node_modules/@types", "src/@types"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "none",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "build",
+    "baseUrl": ".",
+    "paths": { "": ["node_modules/"] }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
