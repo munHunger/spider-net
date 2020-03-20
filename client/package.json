@@ -1,0 +1,41 @@
+{
+  "name": "spider-client",
+  "version": "0.0.1",
+  "description": "A client to the spider net",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc src/index.ts --outDir build/",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munhunger/spider-net.git"
+  },
+  "keywords": [
+    "message",
+    "buss"
+  ],
+  "author": "munhunger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/munhunger/spiderQueue/issues"
+  },
+  "homepage": "https://github.com/munhunger/spiderQueue#readme",
+  "dependencies": {
+    "graphql": "14.6.0",
+    "typescript": "3.8.3",
+    "apollo-boost": "0.4.7",
+    "apollo-client": "2.6.8",
+    "apollo-link-http": "1.5.16",
+    "apollo-cache-inmemory": "1.6.5",
+    "node-fetch": "2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.1",
+    "@types/node-fetch": "^2.5.5",
+    "pkg": "4.4.4",
+    "ts-node": "8.6.2",
+    "tslint": "6.1.0"
+  }
+}

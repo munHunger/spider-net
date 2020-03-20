@@ -3,7 +3,7 @@
     "typeRoots": ["node_modules/@types", "src/@types"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "module": "none",
+    "module": "es6",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "es6",

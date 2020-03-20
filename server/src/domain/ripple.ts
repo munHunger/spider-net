@@ -8,6 +8,7 @@ import {
   PubSubEngine
 } from "type-graphql";
 import { Message } from "./message";
+const CronJob = require("cron").CronJob;
 
 let ripples: Ripple[] = [];
 
@@ -20,27 +21,45 @@ export class Ripple {
   script: string;
   @Field({ nullable: true })
   topicTrigger: string;
+  @Field({ nullable: true })
+  schedule: string;
+
   subscriptionId: number;
+  jobSchedule: any;
 }
 
 export class RippleResolver {
   @Mutation(() => String)
   pushRipple(@Arg("ripple") ripple: Ripple, @PubSub() pubsub: PubSubEngine) {
-    pubsub
-      .subscribe(
-        "NEW_MESSAGE",
-        (message: Message) => {
-          if (message.topic === ripple.topicTrigger) {
-            console.log(eval(ripple.script));
-            eval(ripple.script)(message);
-          }
+    this.removeRipple(ripple.name, pubsub);
+    if (ripple.topicTrigger) {
+      pubsub
+        .subscribe(
+          "NEW_MESSAGE",
+          (message: Message) => {
+            if (message.topic === ripple.topicTrigger) {
+              eval(ripple.script)(message);
+            }
+          },
+          {}
+        )
+        .then(id => {
+          ripple.subscriptionId = id;
+        });
+    }
+    if (ripple.schedule) {
+      ripple.jobSchedule = new CronJob(
+        ripple.schedule,
+        () => {
+          eval(ripple.script)();
         },
-        {}
-      )
-      .then(id => {
-        ripple.subscriptionId = id;
-        ripples.push(ripple);
-      });
+        null,
+        true,
+        "Europe/Stockholm"
+      );
+      ripple.jobSchedule.start();
+    }
+    ripples.push(ripple);
     return "OK";
   }
   @Mutation(() => Number)
